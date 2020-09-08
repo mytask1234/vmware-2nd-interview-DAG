@@ -93,7 +93,7 @@ public class DAG {
 
 		if (src == dest) {
 
-			return false;
+			throw new IllegalArgumentException("parameters 'src' and 'dest' are the same (src == dest)");
 		}
 
 		Helper helper = new Helper();
@@ -111,7 +111,7 @@ public class DAG {
 
 		for (Node node : nodeToNeighborsMap.keySet()) {
 
-			if (isAncestor(node, dest)) {
+			if (dest != node && isAncestor(node, dest)) {
 
 				allAncestorsSet.add(node);
 			}
@@ -131,10 +131,6 @@ public class DAG {
 	}
 
 	private void isAncestor(Node src, Node dest, Helper helper) {
-
-		if (helper.isAncestor()) {
-			return;
-		}
 
 		Set<Node> neighbors = nodeToNeighborsMap.get(src);
 
